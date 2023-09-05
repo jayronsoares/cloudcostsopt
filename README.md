@@ -51,7 +51,3 @@ The Cloud Cost Optimization Demo is a web application designed to showcase the p
 - The application demonstrates the potential cost savings achievable through cloud cost optimization techniques.
 - It educates software and data engineers on the importance of cost-aware cloud resource management.
 - Users can experiment with different parameters to understand the impact of optimization strategies.
-
-## Note
-- The optimization calculations in this demo are simplified for illustrative purposes and may not represent actual optimization techniques in a real-world scenario.
-- Users are encouraged to explore and implement cloud cost optimization best practices tailored to their specific cloud environments and workloads.
