@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cloud Cost Optimization Demo</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container mt-5">
+        <h1 class="mb-4">Cloud Cost Optimization Demo</h1>
+        
+        <form method="POST" class="mb-4">
+            <h2>EC2 Cost</h2>
+            <div class="form-group">
+                <label for="ec2_cost_per_vm_hour">Cost per VM per hour ($)</label>
+                <input type="number" class="form-control" id="ec2_cost_per_vm_hour" name="ec2_cost_per_vm_hour" required>
+            </div>
+            <div class="form-group">
+                <label for="ec2_continuous_vms">Number of Continuous VMs</label>
+                <input type="number" class="form-control" id="ec2_continuous_vms" name="ec2_continuous_vms" required>
+            </div>
+            <div class="form-group">
+                <label for="ec2_peak_vms">Number of Auto-scaled VMs during Peak Demand</label>
+                <input type="number" class="form-control" id="ec2_peak_vms" name="ec2_peak_vms" required>
+            </div>
+            <div class="form-group">
+                <label for="ec2_hours">Number of Hours VMs are Running</label>
+                <input type="number" class="form-control" id="ec2_hours" name="ec2_hours" required>
+            </div>
+            
+            <h2>RDS Cost</h2>
+            <div class="form-group">
+                <label for="rds_cost_per_db_hour">Cost per DB per hour ($)</label>
+                <input type="number" class="form-control" id="rds_cost_per_db_hour" name="rds_cost_per_db_hour" required>
+            </div>
+            <div class="form-group">
+                <label for="rds_num_dbs">Number of RDS Databases</label>
+                <input type="number" class="form-control" id="rds_num_dbs" name="rds_num_dbs" required>
+            </div>
+            <div class="form-group">
+                <label for="rds_hours">Number of Hours Databases are Running</label>
+                <input type="number" class="form-control" id="rds_hours" name="rds_hours" required>
+            </div>
+            
+            <h2>S3 Cost</h2>
+            <div class="form-group">
+                <label for="s3_cost_per_gb_month">Cost per GB per Month ($)</label>
+                <input type="number" class="form-control" id="s3_cost_per_gb_month" name="s3_cost_per_gb_month" required>
+            </div>
+            <div class="form-group">
+                <label for="s3_data_size_gb">Data Size in GB</label>
+                <input type="number" class="form-control" id="s3_data_size_gb" name="s3_data_size_gb" required>
+            </div>
+            
+            <button type="submit" class="btn btn-primary">Calculate</button>
+            <button type="button" class="btn btn-danger" onclick="window.location='/quit'">Quit</button>
+        </form>
+
+        <!-- Result sections for EC2, RDS, and S3 cost comparisons -->
+        {% if ec2_plot_url %}
+            <h2>EC2 Cost Comparison</h2>
+            <p>Total Cost Without Optimization (EC2): ${{ ec2_total_cost_without_optimization }}</p>
+            <p>Total Cost With Optimization (EC2): ${{ ec2_total_cost_with_optimization }}</p>
+            <p>Cost Savings (EC2): ${{ ec2_cost_savings }}</p>
+            <img src="data:image/png;base64,{{ ec2_plot_url }}" alt="EC2 Cost Comparison">
+        {% endif %}
+
+        {% if rds_plot_url %}
+            <h2>RDS Cost Comparison</h2>
+            <p>Total Cost Without Optimization (RDS): ${{ rds_total_cost_without_optimization }}</p>
+            <p>Total Cost With Optimization (RDS): ${{ rds_total_cost_with_optimization }}</p>
+            <p>Cost Savings (RDS): ${{ rds_cost_savings }}</p>
+            <img src="data:image/png;base64,{{ rds_plot_url }}" alt="RDS Cost Comparison">
+        {% endif %}
+
+        {% if s3_plot_url %}
+            <h2>S3 Cost Comparison</h2>
+            <p>Total Cost Without Optimization (S3): ${{ s3_total_cost_without_optimization }}</p>
+            <p>Total Cost With Optimization (S3): ${{ s3_total_cost_with_optimization }}</p>
+            <p>Cost Savings (S3): ${{ s3_cost_savings }}</p>
+            <img src="data:image/png;base64,{{ s3_plot_url }}" alt="S3 Cost Comparison">
+        {% endif %}
+    </div>
+</body>
+</html>

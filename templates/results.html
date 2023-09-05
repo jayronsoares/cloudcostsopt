@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cloud Cost Optimization Results</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container mt-5">
+        <!-- Display the results here -->
+        <h1>Results</h1>
+
+        <!-- Example: Display EC2 results -->
+        {% if ec2_plot_url %}
+            <h2>EC2 Cost Comparison</h2>
+            <p>Total Cost Without Optimization (EC2): ${{ ec2_total_cost_without_optimization }}</p>
+            <p>Total Cost With Optimization (EC2): ${{ ec2_total_cost_with_optimization }}</p>
+            <p>Cost Savings (EC2): ${{ ec2_cost_savings }}</p>
+            <img src="data:image/png;base64,{{ ec2_plot_url }}" alt="EC2 Cost Comparison">
+        {% endif %}
+
+        <!-- Example: Display RDS results -->
+        {% if rds_plot_url %}
+            <h2>RDS Cost Comparison</h2>
+            <p>Total Cost Without Optimization (RDS): ${{ rds_total_cost_without_optimization }}</p>
+            <p>Total Cost With Optimization (RDS): ${{ rds_total_cost_with_optimization }}</p>
+            <p>Cost Savings (RDS): ${{ rds_cost_savings }}</p>
+            <img src="data:image/png;base64,{{ rds_plot_url }}" alt="RDS Cost Comparison">
+        {% endif %}
+
+        <!-- Example: Display S3 results -->
+        {% if s3_plot_url %}
+            <h2>S3 Cost Comparison</h2>
+            <p>Total Cost Without Optimization (S3): ${{ s3_total_cost_without_optimization }}</p>
+            <p>Total Cost With Optimization (S3): ${{ s3_total_cost_with_optimization }}</p>
+            <p>Cost Savings (S3): ${{ s3_cost_savings }}</p>
+            <img src="data:image/png;base64,{{ s3_plot_url }}" alt="S3 Cost Comparison">
+        {% endif %}
+
+        <a href="/" class="btn btn-primary">Back to Input</a>
+    </div>
+</body>
+</html>
